@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import logo from "../images/pngwing.com (6).png";
 
 export default function Navbar() {
@@ -20,10 +21,14 @@ export default function Navbar() {
                 <button className="btn btn-ghost">Button</button>
               </li>
               <li>
-                <button className="btn btn-ghost">Log-in</button>
+                <Link to="/login" className="btn btn-ghost">
+                  Log-in
+                </Link>
               </li>
               <li>
-                <button className="btn btn-ghost">Log-out</button>
+                <Link to="/signup" className="btn btn-ghost">
+                  Sign-up
+                </Link>
               </li>
             </ul>
           </div>
