@@ -12,10 +12,14 @@ export default function Navbar() {
           <div>
             <ul className="flex items-center">
               <li>
-                <button className="btn btn-ghost">Home</button>
+                <Link to="/home" className="btn btn-ghost">
+                  Home
+                </Link>
               </li>
               <li>
-                <button className="btn btn-ghost">All-books</button>
+                <Link to="/allBooks" className="btn btn-ghost">
+                  All-Books
+                </Link>
               </li>
               <li>
                 <button className="btn btn-ghost">Button</button>

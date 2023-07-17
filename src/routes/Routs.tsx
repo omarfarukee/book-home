@@ -4,6 +4,7 @@ import NotFound from "../pages/NotFound";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import SignUpPage from "../pages/SignUp";
+import AllBooksFetch from "../pages/allBooks/AllBooksFecth";
 
 const routes = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const routes = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: "/allBooks",
+        element: <AllBooksFetch />,
       },
       {
         path: "/login",

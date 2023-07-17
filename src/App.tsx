@@ -6,8 +6,6 @@ import { Toaster } from "react-hot-toast";
 import MainLayout from "./layout/Layout";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
       <div>
