@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useAppDispatch } from "../redux/hook";
-import { createUser } from "../redux/features/user/userSlice";
+import { createUser, signUpWithGoogle } from "../redux/features/user/userSlice";
+import { toast } from "react-hot-toast";
 
 interface SignupFormInputs {
   email: string;
@@ -18,10 +19,22 @@ export default function SignUpPage() {
   } = useForm<SignupFormInputs>();
 
   const dispatch = useAppDispatch();
-
+  const navigate = useNavigate();
   const onSubmit = (data: SignupFormInputs) => {
     console.log(data);
-    dispatch(createUser({ email: data.email, password: data.password }));
+    dispatch(createUser({ email: data.email, password: data.password })).then(
+      () => {
+        navigate("/home");
+        toast.success("user created successfully");
+      }
+    );
+  };
+
+  const handleGoogleSignUp = () => {
+    dispatch(signUpWithGoogle()).then(() => {
+      navigate("/home");
+      toast.success("user sign up with google successfully");
+    });
   };
 
   const backgroundImageUrl =
@@ -84,6 +97,7 @@ export default function SignUpPage() {
           </div>
           <div className="mt-3">
             <button
+              onClick={handleGoogleSignUp}
               type="submit"
               className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
             >

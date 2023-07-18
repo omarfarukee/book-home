@@ -6,7 +6,8 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
 import { loginUser } from "../redux/features/user/userSlice";
-type UserAuthFormProps = React.HTMLAttributes<HTMLDivElement>;
+import { toast } from "react-hot-toast";
+
 interface LoginFormInputs {
   email: string;
   password: string;

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
@@ -7,8 +8,10 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { auth } from "../../../firebase/Firebase";
 import {
+  GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signInWithPopup,
 } from "firebase/auth";
 
 interface IUser {
@@ -47,6 +50,14 @@ export const loginUser = createAsyncThunk(
     const data = await signInWithEmailAndPassword(auth, email, password);
 
     return data.user.email;
+  }
+);
+const googleProvider = new GoogleAuthProvider();
+export const signUpWithGoogle = createAsyncThunk(
+  "user/signUpWithGoogle",
+  async () => {
+    const result = await signInWithPopup(auth, googleProvider);
+    return result.user.email;
   }
 );
 
@@ -93,6 +104,24 @@ const userSlice = createSlice({
         state.isError = true;
         state.error = action.error.message;
       });
+
+    builder.addCase(signUpWithGoogle.pending, (state: any) => {
+      state.isLoading = true;
+      state.isError = false;
+      state.error = null;
+    });
+
+    builder.addCase(signUpWithGoogle.fulfilled, (state, action) => {
+      state.user.email = action.payload;
+      state.isLoading = false;
+    });
+
+    builder.addCase(signUpWithGoogle.rejected, (state: any, action) => {
+      state.user.email = null;
+      state.isLoading = false;
+      state.isError = true;
+      state.error = action.error.message;
+    });
   },
 });
 
