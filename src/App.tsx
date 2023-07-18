@@ -23,14 +23,12 @@ function App() {
     });
   }, [dispatch]);
   return (
-    <>
+    <div>
       <div>
-        <div>
-          <Toaster />
-          <MainLayout></MainLayout>
-        </div>
+        <Toaster />
+        <MainLayout></MainLayout>
       </div>
-    </>
+    </div>
   );
 }
 

@@ -57,6 +57,9 @@ export default function Navbar() {
                   </button>
                 </li>
               )}
+              <li>
+                <p>{user?.email}</p>
+              </li>
             </ul>
           </div>
         </div>
