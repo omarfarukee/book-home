@@ -5,11 +5,12 @@ import { useEffect, useState } from "react";
 import { useGetAllBooksQuery } from "../../redux/api/apiSlice";
 import AllBooksCard from "./AllBooksCard";
 export interface IBooks {
+  _id: string;
   Title: string;
   Author: string;
   Genre: string;
   PublicationDate: string;
-  Reviews: string[];
+  Reviews?: string[];
 }
 export default function AllBooksFetch() {
   const { data, isLoading } = useGetAllBooksQuery(undefined);

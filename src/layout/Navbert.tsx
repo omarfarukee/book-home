@@ -35,7 +35,9 @@ export default function Navbar() {
                 </Link>
               </li>
               <li>
-                <button className="btn btn-ghost">Button</button>
+                <Link to="/addBooks" className="btn btn-ghost">
+                  Add-Books
+                </Link>
               </li>
               {!user.email ? (
                 <>
