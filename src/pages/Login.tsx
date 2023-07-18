@@ -11,7 +11,7 @@ interface LoginFormInputs {
   email: string;
   password: string;
 }
-export default function Login({ className, ...props }: UserAuthFormProps) {
+export default function Login() {
   const {
     register,
     handleSubmit,
@@ -25,7 +25,6 @@ export default function Login({ className, ...props }: UserAuthFormProps) {
     console.log(data);
     dispatch(loginUser({ email: data.email, password: data.password }));
   };
-
   useEffect(() => {
     if (user.email && !isLoading) {
       // Redirect to the previous location or the home page
@@ -62,7 +61,9 @@ export default function Login({ className, ...props }: UserAuthFormProps) {
               autoCorrect="off"
               {...register("email", { required: "Email is required" })}
             />
-            {errors.email && <p>{errors.email.message}</p>}
+            {errors.email && (
+              <p className="text-red-500">{errors.email.message}</p>
+            )}
           </div>
           <div className="mb-4">
             <label htmlFor="password" className="block mb-1">
@@ -77,7 +78,9 @@ export default function Login({ className, ...props }: UserAuthFormProps) {
               autoComplete="password"
               {...register("password", { required: "Password is required" })}
             />
-            {errors.password && <p>{errors.password.message}</p>}
+            {errors.password && (
+              <p className="text-red-500">{errors.password.message}</p>
+            )}
           </div>
           <div>
             <button

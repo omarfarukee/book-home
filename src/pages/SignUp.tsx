@@ -1,18 +1,27 @@
-import { useState } from "react";
+/* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/no-floating-promises */
+
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { useAppDispatch } from "../redux/hook";
+import { createUser } from "../redux/features/user/userSlice";
 
+interface SignupFormInputs {
+  email: string;
+  password: string;
+}
 export default function SignUpPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignupFormInputs>();
 
-  const handleSubmit = () => {
-    // Perform sign-up logic here
-    console.log("Email:", email);
-    console.log("Password:", password);
+  const dispatch = useAppDispatch();
 
-    // Reset form fields
-    setEmail("");
-    setPassword("");
+  const onSubmit = (data: SignupFormInputs) => {
+    console.log(data);
+    dispatch(createUser({ email: data.email, password: data.password }));
   };
 
   const backgroundImageUrl =
@@ -29,30 +38,41 @@ export default function SignUpPage() {
     >
       <div className="w-1/3 p-6 bg-white shadow-lg rounded-lg">
         <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4">
             <label htmlFor="email" className="block mb-1">
               Email:
             </label>
             <input
-              type="email"
+              className="w-full border p-3 rounded-md"
               id="email"
-              className="w-full border border-gray-300 p-2 rounded"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              placeholder="name@example.com"
+              type="email"
+              autoCapitalize="none"
+              autoComplete="email"
+              autoCorrect="off"
+              {...register("email", { required: "Email is required" })}
             />
+            {errors.email && (
+              <p className="text-red-500">{errors.email.message}</p>
+            )}
           </div>
           <div className="mb-4">
             <label htmlFor="password" className="block mb-1">
               Password:
             </label>
             <input
-              type="password"
+              className="w-full border p-3 rounded-md"
               id="password"
-              className="w-full border border-gray-300 p-2 rounded"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              placeholder="your password"
+              type="password"
+              autoCapitalize="none"
+              autoComplete="password"
+              {...register("password", { required: "Password is required" })}
             />
+            {errors.password && (
+              <p className="text-red-500">{errors.password.message}</p>
+            )}
           </div>
           <div>
             <button
