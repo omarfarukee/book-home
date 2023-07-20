@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useGetSingleBooksQuery } from "../../redux/api/apiSlice";
 
 export default function BooksDetails() {
@@ -22,10 +23,14 @@ export default function BooksDetails() {
             <li>Review 1</li>
             <li>Review 2</li>
             <li>Review 3</li>
-            <li>Review 3</li>
-            <li>Review 3</li>
-            <li>Review 3</li>
           </ul>
+        </div>
+        <div className="flex justify-between">
+          <Link to={`/allBooks/edit/${books?._id}`}>
+            <button className="btn btn-neutral">Edit</button>
+          </Link>
+
+          <button className="btn btn-primary">Delete</button>
         </div>
       </div>
     </div>

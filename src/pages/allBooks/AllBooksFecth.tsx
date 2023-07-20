@@ -18,9 +18,9 @@ export default function AllBooksFetch() {
 
   const filteredBooks = data?.data?.filter(
     (book: IBooks) =>
-      book.Title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      book.Author.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      book.Genre.toLowerCase().includes(searchTerm.toLowerCase())
+      book.Title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      book.Author?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      book.Genre?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -41,16 +41,22 @@ export default function AllBooksFetch() {
       </div>
 
       <div className="flex justify-center mt-10">
-        <div className="col-span-9 grid grid-cols-3 gap-10 pb-20">
-          {filteredBooks?.map((book: IBooks) => (
-            <AllBooksCard book={book} key={book.Title} />
-          ))}
-          {filteredBooks?.length === 0 && (
-            <p className="text-red-600">
-              No books found for the search result.
-            </p>
-          )}
-        </div>
+        {!filteredBooks ? (
+          <div className="ml-96">
+            <span className="loading loading-spinner loading-lg"></span>
+          </div>
+        ) : (
+          <div className="col-span-9 grid grid-cols-3 gap-10 pb-20">
+            {filteredBooks?.map((book: IBooks) => (
+              <AllBooksCard book={book} key={book.Title} />
+            ))}
+            {filteredBooks?.length === 0 && (
+              <p className="text-red-600">
+                No books found for the search result.
+              </p>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
