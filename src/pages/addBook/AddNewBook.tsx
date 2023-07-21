@@ -10,9 +10,11 @@ import "react-datepicker/dist/react-datepicker.css";
 import { usePostNewBooksMutation } from "../../redux/api/apiSlice";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../redux/hook";
 
 interface Book {
   Title: string;
+  Email?: string | null;
   Author: string;
   Genre: string;
   PublicationDate: Date | null;
@@ -26,6 +28,9 @@ const NewBookForm = () => {
   const [publicationDate, setPublicationDate] = useState<Date | null>(null);
   const [reviews, setReviews] = useState<string[]>();
 
+  const { user } = useAppSelector((state) => state.user);
+  const email = user?.email;
+
   const [postNewBooks, { isLoading, isError, isSuccess }] =
     usePostNewBooksMutation();
 
@@ -37,6 +42,7 @@ const NewBookForm = () => {
     e.preventDefault();
 
     const newBook: Book = {
+      Email: email,
       Title: title,
       Author: author,
       Genre: genre,

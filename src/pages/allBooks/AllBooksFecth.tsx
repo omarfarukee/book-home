@@ -8,6 +8,7 @@ import AllBooksCard from "./AllBooksCard";
 
 export interface IBooks {
   _id: string;
+  Email?: string | null;
   Title: string;
   Author: string;
   Genre: string;

@@ -9,6 +9,7 @@ import {
   useGetSingleBooksQuery,
 } from "../../redux/api/apiSlice";
 import { toast } from "react-hot-toast";
+import { useAppSelector } from "../../redux/hook";
 
 export default function BooksDetails() {
   const { id } = useParams();
@@ -17,20 +18,27 @@ export default function BooksDetails() {
   const navigate = useNavigate();
   const [deleteBook, { isLoading: isDeleting }] = useDeleteBookMutation();
 
+  const { user } = useAppSelector((state) => state.user);
+  const email = user?.email;
+
   const handleDelete = () => {
     const proceed = window.confirm("Are you sure, want to delete the book");
     if (proceed && books) {
-      deleteBook(books?._id)
-        .unwrap()
-        .then((response: any) => {
-          toast.success("Book deleted successfully");
-          console.log("Book deleted successfully:", response);
-          navigate("/allBooks");
-          location.reload();
-        })
-        .catch((error: any) => {
-          console.error("Error deleting book:", error);
-        });
+      if (email === books?.Email) {
+        deleteBook(books?._id)
+          .unwrap()
+          .then((response: any) => {
+            toast.success("Book deleted successfully");
+            console.log("Book deleted successfully:", response);
+            navigate("/allBooks");
+            location.reload();
+          })
+          .catch((error: any) => {
+            console.error("Error deleting book:", error);
+          });
+      } else {
+        toast.error("your are not authorized to delete this book");
+      }
     }
   };
 

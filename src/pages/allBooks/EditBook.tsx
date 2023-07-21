@@ -8,8 +8,10 @@ import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useGetSingleBooksQuery } from "../../redux/api/apiSlice";
 import { toast } from "react-hot-toast";
+import { useAppSelector } from "../../redux/hook";
 interface Book {
   preventDefault: any;
+  Email?: string | null;
   Title?: string;
   Author?: string;
   Genre?: string;
@@ -20,25 +22,30 @@ export default function EditBooks() {
   const { id } = useParams();
   const { data: books, isLoading, error } = useGetSingleBooksQuery(id);
   const [bookData, setBooksData] = useState(books);
-  console.log(bookData?.Author);
 
+  const { user } = useAppSelector((state) => state.user);
+  const email = user?.email;
   const handleUpdate = (event: Book) => {
     event.preventDefault();
 
-    fetch(`http://localhost:5000/allBooks/${books?._id}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(bookData),
-    })
-      .then((res) => res.json())
-      .then((responseData) => {
-        console.log(responseData);
-        if (responseData.modifiedCount > 0) {
-          toast.success("successfully updated");
-        }
-      });
+    if (email === books?.Email) {
+      fetch(`http://localhost:5000/allBooks/${books?._id}`, {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(bookData),
+      })
+        .then((res) => res.json())
+        .then((responseData) => {
+          console.log(responseData);
+          if (responseData.modifiedCount > 0) {
+            toast.success("successfully updated");
+          }
+        });
+    } else {
+      toast.error("your are not authorized to edit this book");
+    }
   };
 
   const handleChange = (event: any) => {
