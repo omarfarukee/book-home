@@ -20,6 +20,12 @@ export const api = createApi({
         body: data,
       }),
     }),
+    deleteBook: builder.mutation({
+      query: (id) => ({
+        url: `/allBooks/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
@@ -27,4 +33,5 @@ export const {
   useGetAllBooksQuery,
   useGetSingleBooksQuery,
   usePostNewBooksMutation,
+  useDeleteBookMutation,
 } = api;

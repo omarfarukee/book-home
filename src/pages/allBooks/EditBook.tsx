@@ -8,18 +8,25 @@ import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useGetSingleBooksQuery } from "../../redux/api/apiSlice";
 import { toast } from "react-hot-toast";
-
+interface Book {
+  preventDefault: any;
+  Title?: string;
+  Author?: string;
+  Genre?: string;
+  PublicationDate?: Date | null;
+  Reviews?: string[];
+}
 export default function EditBooks() {
   const { id } = useParams();
   const { data: books, isLoading, error } = useGetSingleBooksQuery(id);
   const [bookData, setBooksData] = useState(books);
   console.log(bookData?.Author);
 
-  const handleUpdate = (event: any) => {
+  const handleUpdate = (event: Book) => {
     event.preventDefault();
 
     fetch(`http://localhost:5000/allBooks/${books?._id}`, {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         "content-type": "application/json",
       },
@@ -59,7 +66,7 @@ export default function EditBooks() {
               <br />
               <input
                 onChange={handleChange}
-                name="author"
+                name="Author"
                 placeholder="Author"
                 defaultValue={books?.Author}
                 className="mt-2 input input-bordered w-full "

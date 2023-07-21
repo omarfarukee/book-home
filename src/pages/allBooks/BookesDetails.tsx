@@ -1,12 +1,38 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { Link, useParams } from "react-router-dom";
-import { useGetSingleBooksQuery } from "../../redux/api/apiSlice";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import {
+  useDeleteBookMutation,
+  useGetSingleBooksQuery,
+} from "../../redux/api/apiSlice";
+import { toast } from "react-hot-toast";
 
 export default function BooksDetails() {
   const { id } = useParams();
   const { data: books, isLoading, error } = useGetSingleBooksQuery(id);
+
+  const navigate = useNavigate();
+  const [deleteBook, { isLoading: isDeleting }] = useDeleteBookMutation();
+
+  const handleDelete = () => {
+    const proceed = window.confirm("Are you sure, want to delete the book");
+    if (proceed && books) {
+      deleteBook(books?._id)
+        .unwrap()
+        .then((response: any) => {
+          toast.success("Book deleted successfully");
+          console.log("Book deleted successfully:", response);
+          navigate("/allBooks");
+          location.reload();
+        })
+        .catch((error: any) => {
+          console.error("Error deleting book:", error);
+        });
+    }
+  };
 
   return (
     <div className="flex justify-center items-center h-screen">
@@ -30,7 +56,13 @@ export default function BooksDetails() {
             <button className="btn btn-neutral">Edit</button>
           </Link>
 
-          <button className="btn btn-primary">Delete</button>
+          <button
+            className="btn btn-primary"
+            onClick={handleDelete}
+            disabled={isDeleting} // Disable the button while the deletion is in progress
+          >
+            {isDeleting ? "Deleting..." : "Delete"}
+          </button>
         </div>
       </div>
     </div>
