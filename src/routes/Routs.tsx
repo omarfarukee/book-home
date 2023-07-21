@@ -8,6 +8,7 @@ import AllBooksFetch from "../pages/allBooks/AllBooksFecth";
 import BooksDetails from "../pages/allBooks/BookesDetails";
 import AddNewBook from "../pages/addBook/AddNewBook";
 import EditBooks from "../pages/allBooks/EditBook";
+import { PrivateRoute } from "./PrivateRoute";
 
 const routes = createBrowserRouter([
   {
@@ -28,7 +29,11 @@ const routes = createBrowserRouter([
       },
       {
         path: "/addBooks",
-        element: <AddNewBook />,
+        element: (
+          <PrivateRoute>
+            <AddNewBook />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/allBooks/edit/:id",
@@ -44,7 +49,11 @@ const routes = createBrowserRouter([
       },
       {
         path: "/allBooks/:id",
-        element: <BooksDetails />,
+        element: (
+          <PrivateRoute>
+            <BooksDetails />
+          </PrivateRoute>
+        ),
       },
       {
         path: "*",

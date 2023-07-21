@@ -59,7 +59,7 @@ export default function BooksDetails() {
           <button
             className="btn btn-primary"
             onClick={handleDelete}
-            disabled={isDeleting} // Disable the button while the deletion is in progress
+            disabled={isDeleting}
           >
             {isDeleting ? "Deleting..." : "Delete"}
           </button>

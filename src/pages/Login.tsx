@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-floating-promises */
@@ -6,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
 import { loginUser } from "../redux/features/user/userSlice";
-import { toast } from "react-hot-toast";
+import { Renderable, Toast, ValueFunction, toast } from "react-hot-toast";
 
 interface LoginFormInputs {
   email: string;
@@ -19,21 +22,22 @@ export default function Login() {
     formState: { errors },
   } = useForm<LoginFormInputs>();
 
-  const { user, isLoading } = useAppSelector((state) => state.user);
+  const { user, isLoading, isError } = useAppSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const onSubmit = (data: LoginFormInputs) => {
     console.log(data);
     dispatch(loginUser({ email: data.email, password: data.password }));
   };
+  // console.log(isError);
+
   useEffect(() => {
     if (user.email && !isLoading) {
-      // Redirect to the previous location or the home page
-      // const path = (props as any).location?.state?.path || '/';
-      // navigate(path);
+      toast.success("user login successfully");
       navigate("/");
     }
   }, [user.email, isLoading]);
+
   const backgroundImageUrl =
     "https://images.theconversation.com/files/45159/original/rptgtpxd-1396254731.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1356&h=668&fit=crop";
   return (
@@ -91,6 +95,8 @@ export default function Login() {
               Login
             </button>
           </div>
+          <br />
+          <p className="text-white"></p>
         </form>
         <div className="mt-4">
           <span>New in here ? </span>
