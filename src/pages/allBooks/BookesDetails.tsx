@@ -95,11 +95,11 @@ export default function BooksDetails() {
   return (
     <div className="flex justify-center items-center h-screen mt-40">
       <div className="w-1/3 p-6 bg-green-300">
-        <h2 className="text-3xl font-bold mb-4">Name - {books?.Title}</h2>
-        <p className="text-xl mb-2">Author- {books?.Author}</p>
-        <p className="text-xl mb-2">Genre- {books?.Genre}</p>
+        <h2 className="text-3xl font-bold mb-4">Books Name: {books?.Title}</h2>
+        <p className="text-xl mb-2">Author: {books?.Author}</p>
+        <p className="text-xl mb-2">Genre: {books?.Genre}</p>
         <p className="text-xl mb-2">
-          Publication Date- {books?.PublicationDate}
+          Publication Date: {books?.PublicationDate}
         </p>
         <div className="flex justify-between">
           <Link to={`/allBooks/edit/${books?._id}`}>
