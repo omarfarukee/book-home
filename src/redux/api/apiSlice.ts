@@ -26,6 +26,13 @@ export const api = createApi({
         method: "DELETE",
       }),
     }),
+    postReviews: builder.mutation({
+      query: (data) => ({
+        url: "/reviews",
+        method: "POST",
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -34,4 +41,5 @@ export const {
   useGetSingleBooksQuery,
   usePostNewBooksMutation,
   useDeleteBookMutation,
+  usePostReviewsMutation,
 } = api;

@@ -38,7 +38,7 @@ export default function AllBooksFetch() {
         <div className="flex items-center mt-10">
           <input
             type="text"
-            placeholder="Search books by title, author, or genre"
+            placeholder="Search books by title, author"
             className="border border-gray-300 rounded-l px-4 py-2 focus:outline-none"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}

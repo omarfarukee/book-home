@@ -59,8 +59,9 @@ export default function Navbar() {
                   </button>
                 </li>
               )}
-              <li>
-                <p>{user?.email}</p>
+              <li className="flex bg-slate-300 p-3 rounded-lg">
+                <p className="font-bold">User-</p>
+                <p className="">{user?.email}</p>
               </li>
             </ul>
           </div>
