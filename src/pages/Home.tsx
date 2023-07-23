@@ -10,7 +10,7 @@ import { IBooks } from "./allBooks/AllBooksFecth";
 export default function Home() {
   const { data } = useGetAllBooksQuery(undefined, {
     selectFromResult: ({ data }) => ({
-      data: data?.data.slice(-10).reverse(), // Limiting to 10 and reversing the order
+      data: data?.data.slice(-10).reverse(),
     }),
   });
 
