@@ -148,7 +148,7 @@ export default function BooksDetails() {
             onClick={handleReviewSubmit}
             disabled={!review}
           >
-            Submit Review
+            Submit Review.
           </button>
         </div>
       </div>
