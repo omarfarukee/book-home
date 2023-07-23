@@ -61,7 +61,11 @@ export default function Navbar() {
               )}
               <li className="flex bg-slate-300 p-3 rounded-lg">
                 <p className="font-bold">User-</p>
-                <p className="">{user?.email}</p>
+                {user?.email ? (
+                  <p className="">{user?.email}</p>
+                ) : (
+                  <p>user not login</p>
+                )}
               </li>
             </ul>
           </div>

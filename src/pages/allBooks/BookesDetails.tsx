@@ -68,17 +68,21 @@ export default function BooksDetails() {
   console.log(isSuccess);
   const bookId = books?._id;
   const handleReviewSubmit = async () => {
-    const newReviews: IReviews = {
-      bookId: bookId,
-      email: email,
-      reviews: review,
-    };
-    try {
-      await postReviews(newReviews);
-      toast.success("reviews added successfully!");
-      location.reload();
-    } catch (error) {
-      toast.error("Error adding book:");
+    if (email) {
+      const newReviews: IReviews = {
+        bookId: bookId,
+        email: email,
+        reviews: review,
+      };
+      try {
+        await postReviews(newReviews);
+        toast.success("reviews added successfully!");
+        location.reload();
+      } catch (error) {
+        toast.error("Error adding book:");
+      }
+    } else {
+      toast.error("please login first to review this book");
     }
   };
 
