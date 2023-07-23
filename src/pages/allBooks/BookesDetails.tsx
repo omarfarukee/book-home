@@ -112,6 +112,7 @@ export default function BooksDetails() {
         </div>
         <div className="mb-4">
           <h3 className="text-2xl font-bold mb-2">Reviews</h3>
+
           <div>
             {revData?.map((review: any) => (
               <div>
