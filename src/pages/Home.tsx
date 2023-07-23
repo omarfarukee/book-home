@@ -6,6 +6,7 @@
 import { Link } from "react-router-dom";
 import { useGetAllBooksQuery } from "../redux/api/apiSlice";
 import { IBooks } from "./allBooks/AllBooksFecth";
+import Footer from "../layout/Footer";
 
 export default function Home() {
   const { data } = useGetAllBooksQuery(undefined, {
@@ -22,7 +23,10 @@ export default function Home() {
       {data ? (
         <div className="col-span-9 grid grid-cols-3 gap-10 pb-20 p-10">
           {data?.map((homes: IBooks) => (
-            <div key={homes?._id} className="card p-5 border bg-slate-100">
+            <div
+              key={homes?._id}
+              className="card p-5 border bg-slate-100 shadow-2xl"
+            >
               <Link to={`/allBooks/${homes?._id}`}>
                 <h2 className="card-title bg-orange-200 p-3 rounded-lg">
                   {homes?.Title}
@@ -41,6 +45,7 @@ export default function Home() {
           <span className="loading loading-spinner loading-lg"></span>
         </div>
       )}
+      <Footer></Footer>
     </div>
   );
 }

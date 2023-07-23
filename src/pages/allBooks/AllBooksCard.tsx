@@ -11,7 +11,7 @@ export default function AllBooksCard({ book }: IProps) {
 
   return (
     <>
-      <div className="card p-5 border bg-slate-100">
+      <div className="card p-5 border bg-slate-100 shadow-2xl">
         <Link to={`/allBooks/${_id}`}>
           <h2 className="card-title bg-orange-200 p-3 rounded-lg">{Title}</h2>
         </Link>

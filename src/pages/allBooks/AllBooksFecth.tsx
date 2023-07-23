@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useGetAllBooksQuery } from "../../redux/api/apiSlice";
 import AllBooksCard from "./AllBooksCard";
 
@@ -17,7 +17,7 @@ export interface IBooks {
 }
 
 export default function AllBooksFetch() {
-  const { data, isLoading } = useGetAllBooksQuery(undefined);
+  const { data } = useGetAllBooksQuery(undefined);
   const [searchTerm, setSearchTerm] = useState("");
   const [genreFilter, setGenreFilter] = useState("");
   const [publicationYearFilter, setPublicationYearFilter] = useState("");

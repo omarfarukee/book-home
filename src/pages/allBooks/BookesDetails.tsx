@@ -14,15 +14,7 @@ import {
 } from "../../redux/api/apiSlice";
 import { toast } from "react-hot-toast";
 import { useAppSelector } from "../../redux/hook";
-import {
-  JSXElementConstructor,
-  Key,
-  ReactElement,
-  ReactNode,
-  ReactPortal,
-  useEffect,
-  useState,
-} from "react";
+import { useEffect, useState } from "react";
 interface IReviews {
   bookId: string;
   email?: string | null;
@@ -33,7 +25,7 @@ export default function BooksDetails() {
 
   const { id } = useParams();
 
-  const { data: books, isLoading, error } = useGetSingleBooksQuery(id);
+  const { data: books, isLoading } = useGetSingleBooksQuery(id);
 
   const navigate = useNavigate();
   const [deleteBook, { isLoading: isDeleting }] = useDeleteBookMutation();
@@ -87,7 +79,7 @@ export default function BooksDetails() {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:5000/reviews/${bookId}`)
+    fetch(`https://books-home-server.vercel.app/reviews/${bookId}`)
       .then((response) => response.json())
       .then((data) => setRevData(data))
       .catch((error) => {
@@ -97,8 +89,8 @@ export default function BooksDetails() {
   console.log(revData);
 
   return (
-    <div className="flex justify-center items-center h-screen mt-40">
-      <div className="w-1/3 p-6 bg-green-300">
+    <div className="flex justify-center items-center h-screen mt-40 mb-24">
+      <div className="w-1/3 p-6 shadow-2xl mb-10 rounded-2xl">
         <h2 className="text-3xl font-bold mb-4">Books Name: {books?.Title}</h2>
         <p className="text-xl mb-2">Author: {books?.Author}</p>
         <p className="text-xl mb-2">Genre: {books?.Genre}</p>
@@ -123,7 +115,7 @@ export default function BooksDetails() {
           <div>
             {revData?.map((review: any) => (
               <div>
-                <p className="rounded-tr-lg bg-slate-100 mt-2 p-3">
+                <p className="rounded-tr-lg bg-slate-100 shadow-2xl mt-2 p-3">
                   <span className="flex items-center border-b-4 mb-3 font-bold">
                     <FaUserCircle></FaUserCircle>
                     <small className="ml-3">{review?.email}</small>

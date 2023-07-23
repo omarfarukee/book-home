@@ -1,4 +1,3 @@
-import React from "react";
 import logo from "../images/pngwing.com (6).png";
 export default function Footer() {
   const date = new Date();

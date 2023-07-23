@@ -4,8 +4,8 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
 import { useGetSingleBooksQuery } from "../../redux/api/apiSlice";
 import { toast } from "react-hot-toast";
 import { useAppSelector } from "../../redux/hook";
@@ -20,7 +20,7 @@ interface Book {
 }
 export default function EditBooks() {
   const { id } = useParams();
-  const { data: books, isLoading, error } = useGetSingleBooksQuery(id);
+  const { data: books } = useGetSingleBooksQuery(id);
   const [bookData, setBooksData] = useState(books);
 
   const { user } = useAppSelector((state) => state.user);
@@ -29,7 +29,7 @@ export default function EditBooks() {
     event.preventDefault();
 
     if (email === books?.Email) {
-      fetch(`http://localhost:5000/allBooks/${books?._id}`, {
+      fetch(`https://books-home-server.vercel.app/allBooks/${books?._id}`, {
         method: "PATCH",
         headers: {
           "content-type": "application/json",

@@ -4,12 +4,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
 import { loginUser } from "../redux/features/user/userSlice";
-import { Renderable, Toast, ValueFunction, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 interface LoginFormInputs {
   email: string;
@@ -22,7 +22,7 @@ export default function Login() {
     formState: { errors },
   } = useForm<LoginFormInputs>();
 
-  const { user, isLoading, isError } = useAppSelector((state) => state.user);
+  const { user, isLoading } = useAppSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const onSubmit = (data: LoginFormInputs) => {
